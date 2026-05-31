@@ -1,0 +1,78 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+class Student {
+    int roll;
+    string name;
+
+    public:
+        Student() {
+            roll = 0;
+            name = "default";
+        }
+
+        Student(int rollno, string studentname) {
+            roll = rollno;
+            name = studentname;
+        }
+
+        void update() {
+            char arr[100];
+            ofstream fout;
+            fout.open("afile.dat");
+
+            cout << "Enter updated roll: " << endl;
+            cin >> roll;
+            fout << roll << endl;
+
+            cout << "Enter updated name: " << endl;
+            
+            cin.getline(arr, 100);
+            fout << arr << endl;
+
+            fout.close();
+        }
+
+        void deleterecord() {
+            ofstream file;
+            file.open("bfile.dat");
+            file.close();
+            remove("bfile.dat");
+            cout << "Deleted" << endl;
+        }
+
+        void display() {
+            ofstream obj;
+            obj.open("cfile.dat");
+            obj << "Rollno is: " << roll << endl;
+            obj << "Name is: " << name << endl;
+            obj.close();
+
+            cout << "Roll no: " << roll << endl;
+            cout << "Name is: " << name << endl;
+        }
+};
+
+int main() {
+    while(1) {
+        int choice;
+        cout << "Enter choice: \n";
+        cout << "1) Update\n 2) Display\n 3) Delete\n Enter operation to perform: \n";
+        cin >> choice;
+
+        Student obj(843, "XYZ");
+
+        if (choice == 1)
+            obj.update();
+        else if (choice == 2)
+            obj.display();
+        else if (choice == 3)
+            obj.deleterecord();
+        else
+            break;
+    }
+
+    return 0;
+}
