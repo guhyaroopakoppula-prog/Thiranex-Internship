@@ -1,0 +1,114 @@
+#include <iostream>
+using namespace std;
+
+class Book {
+    int bookId, totalBooks, availableBooks;
+    string title[50], author[50];
+
+public:
+    Book() {
+        bookId = 0;
+        totalBooks = 0;
+        availableBooks = 0;
+        for (int i = 0; i < 50; i++) {
+            title[i] = "";
+            author[i] = "";
+        }
+    }
+
+    void addbook(string book, string auth) {
+        if (totalBooks >= 50)
+            cout << "Addition not possible" << endl;
+        else {
+            title[totalBooks] = book;
+            author[totalBooks] = auth;
+            totalBooks++;
+            availableBooks++;
+        }
+    }
+
+    void issuebook(string book1) {
+        if (searchbook(book1) != -1 && availableBooks != 0) {
+            availableBooks--;
+            totalBooks--;
+            cout << "Book issued successfully" << endl;
+        }
+        else if (searchbook(book1) == -1) {
+            cout << "Book not found" << endl;
+        }
+        else {
+            cout << "Book not available" << endl;
+        }
+    }
+
+    int searchbook(string bookTitle) {
+        for (int i = 0; i < 50; i++) {
+            if (title[i] == bookTitle)
+                return i;
+        }
+        return -1;
+    }
+
+    void returnbook(string book2) {
+        if (searchbook(book2) != -1 && availableBooks >= 0) {
+            cout << "Book returned" << endl;
+            availableBooks++;
+            totalBooks++;
+        }
+        else {
+            cout << "Book can not be returned" << endl;
+        }
+    }
+
+    void displaybooks() {
+        for (int i = 0; i < totalBooks; i++) {
+            cout << "Title: " << title[i] << endl;
+            cout << "Author: " << author[i] << endl;
+        }
+    }
+};
+
+class Member {
+    int memId, borrowedCount;
+    string borrowed[10], name[10], author[10];
+
+public:
+    Member() {
+        memId = 0;
+        borrowedCount = 0;
+        for (int i = 0; i < 10; i++) {
+            borrowed[i] = "";
+            name[i] = "";
+            author[i] = "";
+        }
+    }
+
+    Member(int id, string memname, string auth) {
+        memId = id;
+        name[0] = memname;
+        author[0] = auth;
+    }
+
+    void borrowedrecords(string member, string borrowedbook, string bookauthor) {
+        cout << "Book borrowed by: " << member << endl;
+        cout << "Book name (borrowed is): " << borrowedbook << endl;
+        cout << "Book author is: " << bookauthor << endl;
+    }
+};
+
+int main() {
+    Book b1;
+    b1.addbook("Wings of Fire", "Tagore");
+    b1.addbook("Raja", "Rani");
+    b1.addbook("Roopa", "XYZ");
+
+    b1.issuebook("Wings of Fire");
+    b1.searchbook("Roopa");
+    b1.returnbook("Wings of Fire");
+    b1.displaybooks();
+
+    Member m1;
+    m1.borrowedrecords("Rajanandini", "Roopa", "XYZ");
+
+    return 0;
+}
