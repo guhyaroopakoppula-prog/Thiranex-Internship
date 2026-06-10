@@ -1,0 +1,64 @@
+#include <iostream>
+using namespace std;
+int main() {
+    char board[3][3] = {{'1','2','3'},{'4','5','6'},{'7','8','9'}};
+    char opt1, opt2;
+    int temp;
+
+    cout << "Person 1, Enter char (X/O): \n";
+    cin >> opt1;
+    cout << "Person 2, Enter char (X/O): \n";
+    cin >> opt2;
+
+    for (int turn = 0; turn < 9; turn++) {
+        char curr = (turn % 2 == 0) ? opt1 : opt2;
+
+        // Display board
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                cout << board[i][j];
+                if (j < 2) cout << " | ";
+            }
+            cout << "\n";
+            if (i < 2) cout << "---+---+---\n";
+        }
+        cout << "\n";
+
+        cout << "Person " << curr << " Enter position to place (1-9): \n";
+        cin >> temp;
+
+        int row = (temp - 1) / 3;
+        int col = (temp - 1) % 3;
+
+        // ✅ Input validation added
+        if (board[row][col] == 'X' || board[row][col] == 'O') {
+            cout << "Taken position, try again\n";
+            turn--;
+            continue;
+        }
+
+        board[row][col] = curr;
+bool win = false;
+
+        // Columns ✅
+        if (board[0][0]==curr && board[1][0]==curr && board[2][0]==curr) win=true;
+        if (board[0][1]==curr && board[1][1]==curr && board[2][1]==curr) win=true;
+        if (board[0][2]==curr && board[1][2]==curr && board[2][2]==curr) win=true;
+
+        // Rows ✅
+        if (board[0][0]==curr && board[0][1]==curr && board[0][2]==curr) win=true;
+        if (board[1][0]==curr && board[1][1]==curr && board[1][2]==curr) win=true;
+        if (board[2][0]==curr && board[2][1]==curr && board[2][2]==curr) win=true;
+
+        // Diagonals ✅
+        if (board[0][0]==curr && board[1][1]==curr && board[2][2]==curr) win=true;
+        if (board[2][0]==curr && board[1][1]==curr && board[0][2]==curr) win=true;
+if (win) {
+            cout << "Player " << curr << " WINS!\n";
+            return 0;
+        }
+    }
+
+    cout << "Game Draw\n";
+    return 0;
+}
