@@ -13,7 +13,7 @@ int main() {
     for (int turn = 0; turn < 9; turn++) {
         char curr = (turn % 2 == 0) ? opt1 : opt2;
 
-        // Display board
+        
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 cout << board[i][j];
@@ -30,7 +30,7 @@ int main() {
         int row = (temp - 1) / 3;
         int col = (temp - 1) % 3;
 
-        // ✅ Input validation added
+       
         if (board[row][col] == 'X' || board[row][col] == 'O') {
             cout << "Taken position, try again\n";
             turn--;
@@ -40,17 +40,17 @@ int main() {
         board[row][col] = curr;
 bool win = false;
 
-        // Columns ✅
+       
         if (board[0][0]==curr && board[1][0]==curr && board[2][0]==curr) win=true;
         if (board[0][1]==curr && board[1][1]==curr && board[2][1]==curr) win=true;
         if (board[0][2]==curr && board[1][2]==curr && board[2][2]==curr) win=true;
 
-        // Rows ✅
+        
         if (board[0][0]==curr && board[0][1]==curr && board[0][2]==curr) win=true;
         if (board[1][0]==curr && board[1][1]==curr && board[1][2]==curr) win=true;
         if (board[2][0]==curr && board[2][1]==curr && board[2][2]==curr) win=true;
 
-        // Diagonals ✅
+        
         if (board[0][0]==curr && board[1][1]==curr && board[2][2]==curr) win=true;
         if (board[2][0]==curr && board[1][1]==curr && board[0][2]==curr) win=true;
 if (win) {
